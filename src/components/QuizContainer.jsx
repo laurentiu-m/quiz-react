@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import QuizAnswer from "./QuizAnswer";
 import { decode } from "html-entities";
 
-function QuizContainer({ question }) {
+function QuizContainer({ question, setCorrectAnswers }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
   const decodedQuestion = decode(question.question);
@@ -15,6 +15,15 @@ function QuizContainer({ question }) {
       array.splice(randomIndex, 1);
     }
     return array;
+  };
+
+  const checkAnswer = (answer) => {
+    if (answer === question.correct_answer) {
+      setCorrectAnswers((prev) => prev + 1);
+      console.log("The answer is correct");
+      return;
+    }
+    console.log("The answer is incorrect");
   };
 
   useEffect(() => {
@@ -40,7 +49,7 @@ function QuizContainer({ question }) {
 
       <div className="flex flex-col gap-[15px]">
         {shuffledAnswers.map((answer) => (
-          <QuizAnswer key={answer} answer={answer} />
+          <QuizAnswer key={answer} answer={answer} checkAnswer={checkAnswer} />
         ))}
       </div>
     </div>

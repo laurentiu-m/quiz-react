@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import MainPage from "./components/MainPage";
 import Quiz from "./components/Quiz";
 
+export const QuizStartContext = createContext();
+
 function App() {
-  const [gameStart, setGameStart] = useState(true);
+  const [quizStart, setQuizStart] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center font-poppins text-primaryFontColor">
-      {gameStart ? <Quiz /> : <MainPage />}
+      <QuizStartContext.Provider value={setQuizStart}>
+        {quizStart ? <Quiz /> : <MainPage />}
+      </QuizStartContext.Provider>
     </div>
   );
 }

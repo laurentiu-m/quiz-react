@@ -1,10 +1,17 @@
+import { useContext } from "react";
+import { QuizStartContext } from "../App";
 import backIcon from "../assets/back-icon.svg";
 
 function QuizHeader({ currentIndex, questionLength }) {
+  const setQuizStart = useContext(QuizStartContext);
+
   return (
     <div className="flex flex-col gap-[30px]">
       <div className="flex items-center justify-between">
-        <button className="p-1 bg-primaryColor rounded-md">
+        <button
+          onClick={() => setQuizStart(false)}
+          className="p-1 bg-primaryColor rounded-md"
+        >
           <img src={backIcon} alt="back-icon" className="w-[25px]" />
         </button>
 

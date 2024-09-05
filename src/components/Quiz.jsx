@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 function Quiz() {
   const [questions, setQuestions] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
   const [index, setIndex] = useState(1);
 
@@ -37,8 +38,15 @@ function Quiz() {
       {questions && (
         <QuizHeader currentIndex={index} questionLength={questions.length} />
       )}
-      {currentQuestion && <QuizContainer question={currentQuestion} />}
-      {quizFinished && <h1>Quiz Finished</h1>}
+      {currentQuestion && (
+        <QuizContainer
+          question={currentQuestion}
+          setCorrectAnswers={setCorrectAnswers}
+        />
+      )}
+      {quizFinished && (
+        <h1>Quiz Finished, Total correct answers: {correctAnswers}</h1>
+      )}
       <button
         onClick={nextQuestion}
         className="bg-primaryColor p-3 text-lg rounded-md font-semibold"
