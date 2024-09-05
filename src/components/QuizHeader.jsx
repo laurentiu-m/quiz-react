@@ -1,6 +1,6 @@
 import backIcon from "../assets/back-icon.svg";
 
-function QuizHeader() {
+function QuizHeader({ currentIndex, questionLength }) {
   return (
     <div className="flex flex-col gap-[30px]">
       <div className="flex items-center justify-between">
@@ -8,7 +8,7 @@ function QuizHeader() {
           <img src={backIcon} alt="back-icon" className="w-[25px]" />
         </button>
 
-        <p className="font-semibold">02 of 10</p>
+        <p className="font-semibold">{`${currentIndex} of ${questionLength}`}</p>
 
         <div className="px-3 py-1 bg-primaryColor rounded-md">
           <p className="font-medium">01:50</p>
