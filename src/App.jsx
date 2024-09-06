@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center font-poppins text-primaryFontColor">
       <QuizStartContext.Provider value={setQuizStart}>
-        {quizStart ? <Quiz /> : <MainPage />}
+        {!quizStart ? <MainPage /> : <Quiz />}
       </QuizStartContext.Provider>
     </div>
   );

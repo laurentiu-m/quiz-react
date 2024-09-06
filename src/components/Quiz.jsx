@@ -8,17 +8,32 @@ function Quiz() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
   const [index, setIndex] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://opentdb.com/api.php?amount=10");
-      const data = await response.json();
-      setQuestions(data.results);
-      setCurrentQuestion(data.results[0]);
+      try {
+        const response = await fetch("https://opentdb.com/api.php?amount=10");
+        const data = await response.json();
+        setQuestions(data.results);
+        setCurrentQuestion(data.results[0]);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetchData();
+    const loading = setTimeout(() => {
+      fetchData();
+    }, 3000);
+
+    return () => clearTimeout(loading);
   }, []);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   const nextQuestion = () => {
     if (index === questions.length) {
