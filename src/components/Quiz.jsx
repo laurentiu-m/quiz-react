@@ -1,5 +1,6 @@
 import QuizHeader from "./QuizHeader";
 import QuizContainer from "./QuizContainer";
+import Loading from "./Loading";
 import { useEffect, useState } from "react";
 
 function Quiz() {
@@ -32,7 +33,7 @@ function Quiz() {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   const nextQuestion = () => {
