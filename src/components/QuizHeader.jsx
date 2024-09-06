@@ -1,32 +1,33 @@
 import { useContext } from "react";
 import { QuizStartContext } from "../App";
-import backIcon from "../assets/back-icon.svg";
+import BackButton from "./BackButton";
+import Timer from "./Timer";
+import ProgressBar from "./ProgressBar";
+import PropTypes from "prop-types";
 
-function QuizHeader({ currentIndex, questionLength }) {
+function QuizHeader({ currentIndex, questionLength, minutes, seconds }) {
   const setQuizStart = useContext(QuizStartContext);
 
   return (
-    <div className="flex flex-col gap-[30px]">
+    <div className="flex flex-col gap-[10px]">
       <div className="flex items-center justify-between">
-        <button
-          onClick={() => setQuizStart(false)}
-          className="p-1 bg-primaryColor rounded-md"
-        >
-          <img src={backIcon} alt="back-icon" className="w-[25px]" />
-        </button>
+        <BackButton handleClick={setQuizStart} />
 
-        <p className="font-semibold">{`${currentIndex} of ${questionLength}`}</p>
-
-        <div className="px-3 py-1 bg-primaryColor rounded-md">
-          <p className="font-medium">01:50</p>
-        </div>
+        <Timer minutes={minutes} seconds={seconds} />
       </div>
 
-      <div className="w-full relative bg-primaryFontColor p-2 rounded-md">
-        <div className="absolute left-0 top-0 w-[50%] bg-primaryColor p-2 rounded-md"></div>
-      </div>
+      <p className="font-semibold text-center">{`${currentIndex} of ${questionLength}`}</p>
+
+      <ProgressBar index={currentIndex} />
     </div>
   );
 }
+
+QuizHeader.propTypes = {
+  currentIndex: PropTypes.number,
+  questionLength: PropTypes.number,
+  minutes: PropTypes.number,
+  seconds: PropTypes.number,
+};
 
 export default QuizHeader;
