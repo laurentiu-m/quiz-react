@@ -4,37 +4,46 @@ import { decode } from "html-entities";
 import PropTypes from "prop-types";
 import { shuffleAnswers } from "../utils/quizUtils";
 
-function QuizContainer({ question, setCorrectAnswers }) {
+function QuizContainer({ question, setCorrectAnswers, nextQuestion }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [isClickable, setIsClickable] = useState(true);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
+  // Decode questions and category strings to HTML to be readable text
   const decodedQuestion = decode(question.question);
   const decodedCategory = decode(question.category);
 
+  // On every new question reset the states to initial value and shuffle the answers
   useEffect(() => {
     setIsClickable(true);
+    setSelectedAnswer(null);
     setShowCorrectAnswer(false);
+
     const allAnswers = [
       ...question.incorrect_answers.map((answer) => decode(answer)),
       decode(question.correct_answer),
     ];
+
     setShuffledAnswers(shuffleAnswers(allAnswers));
   }, [question]);
 
+  // Check if the selected answer is correct
   const checkAnswer = (answer) => {
     if (!isClickable) return;
 
+    setSelectedAnswer(answer);
+    setIsClickable(false);
+
     if (answer === question.correct_answer) {
       setCorrectAnswers((prev) => prev + 1);
-      setIsClickable(false);
-      setShowCorrectAnswer(true);
-      console.log("The answer is correct");
-      return;
     } else {
-      setIsClickable(false);
-      console.log("The answer is incorrect");
+      setShowCorrectAnswer(true);
     }
+
+    setTimeout(() => {
+      nextQuestion();
+    }, 1000);
   };
 
   return (
@@ -54,6 +63,7 @@ function QuizContainer({ question, setCorrectAnswers }) {
             key={answer}
             answer={answer}
             checkAnswer={checkAnswer}
+            selectedAnswer={selectedAnswer}
             correctAnswer={question.correct_answer}
             showCorrectAnswer={showCorrectAnswer}
           />
@@ -66,6 +76,7 @@ function QuizContainer({ question, setCorrectAnswers }) {
 QuizContainer.propTypes = {
   question: PropTypes.object,
   setCorrectAnswers: PropTypes.func,
+  nextQuestion: PropTypes.func,
 };
 
 export default QuizContainer;
