@@ -16,7 +16,7 @@ function QuizHeader({ currentIndex, questionLength, minutes, seconds }) {
         <Timer minutes={minutes} seconds={seconds} />
       </div>
 
-      <p className="font-semibold text-center">{`${currentIndex} of ${questionLength}`}</p>
+      <p className="font-semibold text-center sm:text-lg">{`${currentIndex} of ${questionLength}`}</p>
 
       <ProgressBar index={currentIndex} />
     </div>

@@ -4,21 +4,23 @@ export default function QuizAnswer({
   answer,
   checkAnswer,
   correctAnswer,
+  selectedAnswer,
   showCorrectAnswer,
 }) {
   return (
     <div
       onClick={() => checkAnswer(answer)}
-      className="flex items-center gap-[10px] border-[2px] border-primaryFontColor p-3 rounded-lg"
+      className={`flex items-center gap-[10px] border-[2px] p-3 rounded-lg cursor-pointer transition-all ease-out sm:p-4 ${
+        selectedAnswer === answer
+          ? answer === correctAnswer
+            ? "bg-correctColor"
+            : "bg-errorColor"
+          : showCorrectAnswer && answer === correctAnswer
+          ? "bg-correctColor"
+          : "bg-transparent"
+      }`}
     >
-      <button
-        className={`p-[10px] rounded-full border-[2px] border-primaryFontColor ${
-          showCorrectAnswer && correctAnswer === answer
-            ? "bg-primaryFontColor"
-            : "bg-transparent"
-        }`}
-      ></button>
-      <p className="w-full font-medium">{answer}</p>
+      <p className="w-full text-sm font-medium sm:text-base">{answer}</p>
     </div>
   );
 }
@@ -26,4 +28,7 @@ export default function QuizAnswer({
 QuizAnswer.propTypes = {
   answer: PropTypes.string,
   checkAnswer: PropTypes.func,
+  correctAnswer: PropTypes.string,
+  selectedAnswer: PropTypes.string,
+  showCorrectAnswer: PropTypes.bool,
 };

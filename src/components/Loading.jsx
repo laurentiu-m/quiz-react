@@ -1,9 +1,9 @@
 function Loading() {
   return (
-    <div className="flex items-center justify-center gap-2 h-[90vh]">
+    <div className="flex items-center justify-center gap-2 h-[90vh] sm:gap-4">
       <svg
         aria-hidden="true"
-        className="w-[40px] h-[40px] text-secondFontColor animate-spin dark:text-secondFontColor fill-primaryColor"
+        className="w-[40px] h-[40px] text-secondFontColor animate-spin dark:text-secondFontColor fill-primaryColor sm:w-[50px] sm:h-[50px]"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,9 @@ function Loading() {
           fill="currentFill"
         />
       </svg>
-      <span className="text-primaryColor text-xl font-medium">Loading...</span>
+      <span className="text-primaryColor text-xl font-medium sm:text-2xl">
+        Loading...
+      </span>
     </div>
   );
 }

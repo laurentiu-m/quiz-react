@@ -2,37 +2,34 @@ import QuizHeader from "./QuizHeader";
 import QuizContainer from "./QuizContainer";
 import QuizFinished from "./QuizFinished";
 import Loading from "./Loading";
-import Button from "./Button";
 import useTimer from "../hooks/useTimer";
 import { fetchQuestions } from "../utils/quizUtils";
 import { useEffect, useState } from "react";
 
 function Quiz() {
   const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState({});
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Costume Hook for timer
+  // Custom hook to handle the quiz timer
   const { minutes, seconds } = useTimer(!quizFinished, isLoading);
 
-  // Fetch data from api
+  // Fetch quiz questions from API
   useEffect(() => {
     const loadQuestions = async () => {
       try {
         const data = await fetchQuestions();
         setQuestions(data);
-        setCurrentQuestion(data[0]);
       } catch (error) {
-        console.error(error.message);
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    // Fetch after 3 seconds
+    // A 3 seconds delay before the fetch
     const loading = setTimeout(() => {
       loadQuestions();
     }, 3000);
@@ -40,28 +37,29 @@ function Quiz() {
     return () => clearTimeout(loading);
   }, []);
 
-  // Loading the page
+  // Show loading screen until data is fetched
   if (isLoading) {
     return <Loading />;
   }
 
-  // Change to next question and check if is finished
+  // Move to the next question or finish the quiz
   const nextQuestion = () => {
-    if (index === questions.length) {
+    if (index === questions.length - 1) {
       setQuizFinished(true);
-      return;
+    } else {
+      setIndex((prev) => prev + 1);
     }
-
-    setIndex(index + 1);
-    setCurrentQuestion(questions[index]);
   };
 
+  // Get the current question
+  const currentQuestion = questions[index];
+
   return (
-    <div className="relative top-[50px] pb-[50px] w-[85%] flex flex-col gap-[30px]">
+    <div className="relative top-[50px] pb-[50px] w-[85%] flex flex-col gap-[30px] min-[535px]:w-[450px] xl:w-[550px]">
       {!quizFinished ? (
         <>
           <QuizHeader
-            currentIndex={index}
+            currentIndex={index + 1}
             questionLength={questions.length}
             minutes={minutes}
             seconds={seconds}
@@ -70,9 +68,8 @@ function Quiz() {
           <QuizContainer
             question={currentQuestion}
             setCorrectAnswers={setCorrectAnswers}
+            nextQuestion={nextQuestion}
           />
-
-          <Button text={"Next"} handleClick={nextQuestion} />
         </>
       ) : (
         <QuizFinished

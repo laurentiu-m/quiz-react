@@ -8,6 +8,7 @@ export default {
         primaryFontColor: "#E0E0E0",
         secondFontColor: "#B0BEC5",
         primaryColor: "#1E88E5",
+        correctColor: "#4CAF50",
         errorColor: "#CF6679",
       },
       fontFamily: {
