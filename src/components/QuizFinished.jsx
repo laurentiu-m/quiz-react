@@ -28,14 +28,16 @@ function QuizFinished({ correctAnswers, questionLength, minutes, seconds }) {
   return (
     <>
       <div className="bg-primaryColor rounded-md px-10 py-12 text-center flex flex-col items-center justify-center gap-[50px]">
-        <h1 className="text-3xl font-semibold">Quiz Finished!</h1>
+        <h1 className="text-3xl font-semibold sm:text-4xl">Quiz Finished!</h1>
 
         <div className="flex flex-col items-center gap-[5px]">
-          <p className="font-light">{`You score ${correctAnswers}/${questionLength}!`}</p>
-          <h2 className="text-2xl font-semibold">{ratingMessage}</h2>
+          <p className="font-light sm:text-lg">{`You score ${correctAnswers}/${questionLength}!`}</p>
+          <h2 className="text-2xl font-semibold sm:text-3xl">
+            {ratingMessage}
+          </h2>
         </div>
 
-        <p className="text-sm font-light">
+        <p className="text-sm font-light sm:text-base">
           {`You finished in ${minutes} ${
             minutes === 1 ? "minute" : "minutes"
           } and ${seconds} ${seconds === 1 ? "second" : "seconds"}`}

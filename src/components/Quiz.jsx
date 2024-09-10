@@ -55,11 +55,11 @@ function Quiz() {
   const currentQuestion = questions[index];
 
   return (
-    <div className="relative top-[50px] pb-[50px] w-[85%] flex flex-col gap-[30px]">
+    <div className="relative top-[50px] pb-[50px] w-[85%] flex flex-col gap-[30px] min-[535px]:w-[450px] xl:w-[550px]">
       {!quizFinished ? (
         <>
           <QuizHeader
-            currentIndex={index}
+            currentIndex={index + 1}
             questionLength={questions.length}
             minutes={minutes}
             seconds={seconds}

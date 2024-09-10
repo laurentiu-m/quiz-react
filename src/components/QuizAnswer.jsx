@@ -10,7 +10,7 @@ export default function QuizAnswer({
   return (
     <div
       onClick={() => checkAnswer(answer)}
-      className={`flex items-center gap-[10px] border-[2px] p-3 rounded-lg cursor-pointer ${
+      className={`flex items-center gap-[10px] border-[2px] p-3 rounded-lg cursor-pointer transition-all ease-out sm:p-4 ${
         selectedAnswer === answer
           ? answer === correctAnswer
             ? "bg-correctColor"
@@ -20,7 +20,7 @@ export default function QuizAnswer({
           : "bg-transparent"
       }`}
     >
-      <p className={`w-full text-sm font-medium`}>{answer}</p>
+      <p className="w-full text-sm font-medium sm:text-base">{answer}</p>
     </div>
   );
 }

@@ -43,16 +43,16 @@ function QuizContainer({ question, setCorrectAnswers, nextQuestion }) {
 
     setTimeout(() => {
       nextQuestion();
-    }, 1000);
+    }, 1500);
   };
 
   return (
-    <div className="bg-primaryColor rounded-md py-8 px-5 flex flex-col gap-[30px]">
+    <div className="bg-primaryColor rounded-md py-8 px-5 flex flex-col gap-[30px] sm:p-10">
       <div className="flex flex-col gap-2">
-        <p className="font-medium text-center leading-tight">
+        <p className="font-medium text-center leading-tight sm:text-lg">
           {decodedQuestion}
         </p>
-        <p className="text-center text-secondFontColor text-sm font-light">
+        <p className="text-center text-secondFontColor text-sm font-light sm:text-base">
           {decodedCategory}
         </p>
       </div>
